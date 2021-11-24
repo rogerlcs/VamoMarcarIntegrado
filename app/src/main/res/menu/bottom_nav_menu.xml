@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/allEventsViewOp"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="Todos os Eventos"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/myEventsViewOp"
+        android:icon="@drawable/ic_baseline_calendar_today_24"
+        android:title="Meus Eventos"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/invitationsViewOp"
+        android:icon="@drawable/ic_baseline_email_24"
+        android:title="Convites"
+        app:showAsAction="ifRoom" />
+</menu>

@@ -49,11 +49,14 @@ public class InProgressAdapter extends RecyclerView.Adapter {
 
         switch (status){
             case 0:
+            case 2:
                 imbVotacao.setVisibility(View.INVISIBLE);
+                imbVotacao.setClickable(false);
                 tvDatavotacao.setText(dataformatada + ", " + hora);
                 break;
             case 1:
                 imbVotacao.setVisibility(View.VISIBLE);
+                imbVotacao.setClickable(true);
                 if(data.votei == 0){
                     imbVotacao.setColorFilter(Color.argb(255, 133, 132, 132));
                 }

@@ -178,8 +178,7 @@ public class Event {
                 @Override
                 public void onFinish() {
                     tvDate.setText("Votação encerrada!");
-                    FloatingActionButton floatingActionButton = ((Activity) context).findViewById(R.id.fabMarcar);
-                    floatingActionButton.setVisibility(View.VISIBLE);
+                    setStatusEvent(2, context);
 
                 }
             };

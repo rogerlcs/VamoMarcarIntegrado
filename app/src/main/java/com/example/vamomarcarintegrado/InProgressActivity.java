@@ -34,9 +34,6 @@ public class InProgressActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_in_progress);
 
-        FloatingActionButton floatingActionButton = findViewById(R.id.fabMarcar);
-        floatingActionButton.setClickable(false);
-        floatingActionButton.setVisibility(View.INVISIBLE);
 
         Toolbar toolbar = findViewById(R.id.tbEventoSugestao);
         setSupportActionBar(toolbar);
@@ -76,6 +73,19 @@ public class InProgressActivity extends AppCompatActivity {
                 TextView tvCronometro = findViewById(R.id.tvCronometro);
 
                 event.startTime(InProgressActivity.this, tvCronometro);
+                FloatingActionButton floatingActionButton = findViewById(R.id.fabMarcar);
+
+                if(event.status_event != 2){
+                    floatingActionButton.setClickable(false);
+                    floatingActionButton.setVisibility(View.INVISIBLE);
+                    Log.i("Texto cronometro: ", tvCronometro.getText().toString());
+                }
+                else{
+                    floatingActionButton.setClickable(true);
+                    floatingActionButton.setVisibility(View.VISIBLE);
+                    Log.i("Texto cronometro: ", tvCronometro.getText().toString());
+                }
+
 
 
 

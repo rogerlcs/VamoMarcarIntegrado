@@ -70,7 +70,7 @@ public class AllEventsAdapter extends RecyclerView.Adapter {
                 tvLocation = holder.itemView.findViewById(R.id.tvLocation);
                 tvLocation.setText(event.local);
 
-                if(event.status_event == 2){
+                if(event.status_event == 3){
                     tvDate.setText(event.getData() + "    " + event.getHour());
                 }
 

@@ -184,6 +184,9 @@ public class Event {
             };
             countDownTimer.start();
         }
+        else if(status_event == 2){
+            tvDate.setText("Votação encerrada!");
+        }
     }
 
     public String getParticipants(Context context) {

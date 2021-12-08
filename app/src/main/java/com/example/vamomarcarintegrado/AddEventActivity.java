@@ -126,6 +126,14 @@ public class AddEventActivity extends AppCompatActivity {
                     return;
                 }
 
+                EditText etLocalName = findViewById(R.id.etLocalName);
+                String localname = etLocalName.getText().toString();
+                if(localname.isEmpty()){
+                    Toast.makeText(AddEventActivity.this, "O campo Apelido do local não foi preenchido", Toast.LENGTH_LONG).show();
+                    v.setEnabled(true);
+                    return;
+                }
+
                 Uri currentPhotoPath = vm.currentPhotoPath;
                 if(currentPhotoPath == null){
                     Toast.makeText(AddEventActivity.this, "O campo foto  não foi preenchido", Toast.LENGTH_LONG).show();
@@ -188,6 +196,7 @@ public class AddEventActivity extends AppCompatActivity {
                             //Adicionando os parametros do produto na requisicao
                             httpRequest.addParam("nome", name);
                             httpRequest.addParam("local", local);
+                            httpRequest.addParam("apelidolocal", localname);
                             httpRequest.addParam("descricao", description);
                             httpRequest.addParam("prazov", dtVote);
                             httpRequest.addParam("prazos", dtSuggest);

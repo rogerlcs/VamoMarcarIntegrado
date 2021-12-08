@@ -68,7 +68,7 @@ public class AllEventsAdapter extends RecyclerView.Adapter {
                 tvDate = holder.itemView.findViewById(R.id.tvDate);
 
                 tvLocation = holder.itemView.findViewById(R.id.tvLocation);
-                tvLocation.setText(event.local);
+                tvLocation.setText(event.localName);
 
                 if(event.status_event == 3){
                     tvDate.setText(event.getData() + "    " + event.getHour());
@@ -101,7 +101,7 @@ public class AllEventsAdapter extends RecyclerView.Adapter {
                 tvDate.setText("");
 
                 tvLocation = holder.itemView.findViewById(R.id.tvLocationI);
-                tvLocation.setText(event.local);
+                tvLocation.setText(event.localName);
 
                 Button btnAccept = holder.itemView.findViewById(R.id.btnAccept);
                 btnAccept.setOnClickListener(new View.OnClickListener() {

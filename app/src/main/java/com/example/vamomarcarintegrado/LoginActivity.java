@@ -39,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         List<String> permissions = new ArrayList<>();
         permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
 
+
         checkForPermissions(permissions);
 
         Button btnLogin = findViewById(R.id.btnLogin);
@@ -64,6 +65,8 @@ public class LoginActivity extends AppCompatActivity {
                             InputStream is = httpRequest.execute();
                             String result = Util.inputStream2String(is, "UTF-8");
                             httpRequest.finish();
+
+
 
                             JSONObject jsonObject = new JSONObject(result);
                             final int success = jsonObject.getInt("success");

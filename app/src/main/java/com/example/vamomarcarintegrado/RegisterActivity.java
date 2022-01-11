@@ -56,11 +56,12 @@ public class RegisterActivity extends AppCompatActivity {
 
 
                 EditText etNewPassword =  findViewById(R.id.etNewPassword);
-                final String newPassword = etNewPassword.getText().toString();
+                final String newPassword = etNewPassword.getText().toString().trim();
                 if(newPassword.isEmpty()) {
                     Toast.makeText(RegisterActivity.this, "Campo de senha não preenchido", Toast.LENGTH_LONG).show();
                     return;
                 }
+
 
                 EditText etName =  findViewById(R.id.etName);
                 final String name = etName.getText().toString();

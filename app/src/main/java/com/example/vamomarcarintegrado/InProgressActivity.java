@@ -136,16 +136,108 @@ public class InProgressActivity extends AppCompatActivity {
                 });
 
 
-                /*floatingActionButton.setOnClickListener(new View.OnClickListener() {
+                floatingActionButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        new AlertDialog.Builder(SugestaoActivity.this).setMessage("Deseja Marcar o Evento?").
+                        new AlertDialog.Builder(InProgressActivity.this).setMessage("Deseja Marcar o Evento?").
                                 setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        Intent i = new Intent(SugestaoActivity.this, ResultActivity.class);
-                                        i.putExtra("index",position);
-                                        startActivity(i);
+                                        dialog.dismiss();
+                                        final String login = Config.getLogin(InProgressActivity.this);
+                                        final String password = Config.getPassword(InProgressActivity.this);
+
+                                        ExecutorService executorService = Executors.newSingleThreadExecutor();
+                                        //Executando a thread
+                                        executorService.execute(new Runnable() {
+                                            @Override
+                                            public void run() {
+
+                                                List<Data> dataLists = new ArrayList<>();
+                                                List<String> datas = new ArrayList<>();
+                                                final Data[] d = new Data[1];
+
+                                                HttpRequest httpRequest = new HttpRequest(Config.SERVER_URL_BASE + "get_winning_dates.php", "GET", "UTF-8");
+                                                httpRequest.setBasicAuth(login, password);
+                                                httpRequest.addParam("idevento", idevento);
+
+                                                try {
+                                                    InputStream is = httpRequest.execute();
+                                                    String result = Util.inputStream2String(is,"UTF-8");
+                                                    Log.d("HTTP_REQUEST_RESULT", result);
+
+                                                    httpRequest.finish();
+
+
+                                                    JSONObject jsonObject = new JSONObject(result);
+
+                                                    int success = jsonObject.getInt("success");
+                                                    if(success == 1){
+                                                        JSONArray jsonArrayDatas =jsonObject.getJSONArray("datas");
+                                                        for (int i = 0; i < jsonArrayDatas.length(); i++){
+                                                            JSONObject jData = jsonArrayDatas.getJSONObject(i);
+                                                            String codigo = jData.getString("id");
+                                                            String date = jData.getString("data");
+                                                            int votos = jData.getInt("votos");
+
+
+
+                                                            Timestamp tdate = Timestamp.valueOf(date);
+                                                            Calendar calendarD =  Calendar.getInstance();
+                                                            calendarD.setTime(tdate);
+                                                            Data data = new Data(codigo, calendarD, votos);
+
+                                                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy - HH:mm");
+                                                            datas.add(sdf.format(calendarD.getTime()) + " - " + String.valueOf(votos));
+                                                            dataLists.add(data);
+                                                        }
+                                                        runOnUiThread(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                final int[] d = new int[1];
+                                                                AlertDialog.Builder builder = new AlertDialog.Builder(InProgressActivity.this);
+                                                                builder.setTitle("Escolha a data:");
+                                                                final CharSequence[] datasChar = datas.toArray(new CharSequence[datas.size()]);
+                                                                builder.setSingleChoiceItems(datasChar, -1, new DialogInterface.OnClickListener() {
+                                                                    @Override
+                                                                    public void onClick(DialogInterface dialog, int which) {
+                                                                        d[0] = which;
+                                                                    }
+                                                                });
+                                                                builder.setPositiveButton("Marcar", new DialogInterface.OnClickListener() {
+                                                                    @Override
+                                                                    public void onClick(DialogInterface dialog, int which) {
+                                                                        dialog.dismiss();
+                                                                        marcar(dataLists.get(d[0]));
+                                                                    }
+                                                                });
+                                                                AlertDialog alertDialog = builder.create();
+                                                                alertDialog.show();
+                                                            }
+
+                                                        });
+
+                                                    }
+                                                    else {
+                                                        final String error = jsonObject.getString("error");
+                                                        runOnUiThread(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                Toast.makeText(InProgressActivity.this, error, Toast.LENGTH_LONG).show();
+                                                            }
+
+                                                        });
+                                                    }
+
+                                                } catch (IOException | JSONException e) {
+                                                    e.printStackTrace();
+                                                }
+
+                                            }
+                                        });
+                                        AlertDialog marcar = null;
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(InProgressActivity.this);
+
                                     }
                                 }).setNegativeButton("Não",new DialogInterface.OnClickListener() {
                             @Override
@@ -156,8 +248,6 @@ public class InProgressActivity extends AppCompatActivity {
                     }
                 });
 
-
-            }*/
 
             }
             public void showHourPicker(Calendar c) {
@@ -208,6 +298,61 @@ public class InProgressActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.tbevento, menu);
         return true;
+    }
+
+    public void marcar(Data d){
+        final String login = Config.getLogin(InProgressActivity.this);
+        final String password = Config.getPassword(InProgressActivity.this);
+
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        //Executando a thread
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                //Criando a requisicao com o servidor
+                HttpRequest httpRequest = new HttpRequest(Config.SERVER_URL_BASE + "marcar_evento.php", "POST", "UTF-8");
+
+                //Adicionando os parametros do produto na requisicao
+                httpRequest.addParam("idevento", idevento);
+                httpRequest.addParam("iddata", d.id);
+                httpRequest.setBasicAuth(login, password);
+
+                try {
+                    InputStream is = httpRequest.execute();
+                    String result = Util.inputStream2String(is,"UTF-8");
+                    Log.d("HTTP_REQUEST_RESULT", result);
+                    //Finalizando a requisicao
+                    httpRequest.finish();
+
+                    //Criando um JSONObject do resultado da requisicao
+                    JSONObject jsonObject = new JSONObject(result);
+                    //Obtendo o valor referente a chave success
+                    int success = jsonObject.getInt("success");
+                    //Execuntando o codigo na thread da interface
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(success == 1){
+                                Toast.makeText(InProgressActivity.this, "Evento Marcado!",Toast.LENGTH_LONG).show();
+                                finish();
+                            }
+                            else {
+                                try {
+                                    final String error = jsonObject.getString("error");
+                                    Toast.makeText(InProgressActivity.this, error,Toast.LENGTH_LONG).show();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        }
+                    });
+
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     public void sugerir(Calendar c){

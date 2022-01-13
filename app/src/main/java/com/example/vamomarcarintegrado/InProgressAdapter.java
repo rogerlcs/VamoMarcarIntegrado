@@ -49,10 +49,14 @@ public class InProgressAdapter extends RecyclerView.Adapter {
 
         switch (status){
             case 0:
-            case 2:
                 imbVotacao.setVisibility(View.INVISIBLE);
                 imbVotacao.setClickable(false);
                 tvDatavotacao.setText(dataformatada + ", " + hora);
+                break;
+            case 2:
+                imbVotacao.setVisibility(View.INVISIBLE);
+                imbVotacao.setClickable(false);
+                tvDatavotacao.setText(dataformatada + ", " + hora + " - " + data.votes);
                 break;
             case 1:
                 imbVotacao.setVisibility(View.VISIBLE);

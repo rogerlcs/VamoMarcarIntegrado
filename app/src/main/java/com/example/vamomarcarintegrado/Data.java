@@ -26,6 +26,12 @@ public class Data {
         this.votei = votei;
     }
 
+    public Data(String id, Calendar data, int votes) {
+        this.id = id;
+        this.data = data;
+        this.votes = votes;
+    }
+
     public void Vote(Context context, String idevento){
         Log.i("chamei a funcao", "vote");
         final String login = Config.getLogin(context);

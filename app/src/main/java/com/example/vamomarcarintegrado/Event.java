@@ -19,8 +19,11 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -134,12 +137,21 @@ public class Event {
         });
     }
 
-    public String getData(){
-        return null;
+    public String getData()  {
+        Timestamp timestamp = Timestamp.valueOf(finalDate);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(timestamp);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        return simpleDateFormat.format(calendar.getTime());
+
     }
 
-    public String getHour(){
-        return null;
+    public String getHour()  {
+       Timestamp timestamp = Timestamp.valueOf(finalDate);
+       Calendar calendar = Calendar.getInstance();
+       calendar.setTime(timestamp);
+       SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+       return simpleDateFormat.format(calendar.getTime());
     }
 
     public void startTime(Context context, TextView tvDate){

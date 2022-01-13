@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.ParseException;
 import java.util.List;
 
 public class AllEventsAdapter extends RecyclerView.Adapter {
@@ -71,7 +72,8 @@ public class AllEventsAdapter extends RecyclerView.Adapter {
                 tvLocation.setText(event.localName);
 
                 if(event.status_event == 3){
-                    tvDate.setText(event.getData() + "    " + event.getHour());
+                        tvDate.setText(event.getData() + "    " + event.getHour());
+
                 }
 
                 else{

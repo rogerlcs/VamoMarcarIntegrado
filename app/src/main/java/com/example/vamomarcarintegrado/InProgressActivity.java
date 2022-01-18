@@ -23,6 +23,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -83,6 +84,9 @@ public class InProgressActivity extends AppCompatActivity {
 
                 TextView tvNomeSugestao = findViewById(R.id.tvNomeSugestao);
                 tvNomeSugestao.setText(event.name);
+
+                ImageView imvEventInProgress = findViewById(R.id.imvEventInProgress);
+                imvEventInProgress.setImageBitmap(event.img);
 
                 TextView tvDescEvS = findViewById(R.id.tvDescEvS);
                 tvDescEvS.setText(event.description);

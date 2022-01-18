@@ -11,9 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -28,6 +30,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
@@ -52,11 +55,12 @@ public class AddEventActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         AddEventViewModel vm = new ViewModelProvider(this).get(AddEventViewModel.class);
-        Uri currentPath = vm.getCurrentPhotoPath();
+        String currentPath = vm.getCurrentPhotoPath();
         ImageView imvPhoto = findViewById(R.id.imvPhoto);
 
-        if(currentPath != null){
-            imvPhoto.setImageURI(currentPath);
+        if(currentPath != ""){
+            Bitmap bitmap = Util.getBitmap(currentPath, imvPhoto.getMaxWidth(), imvPhoto.getMaxHeight());
+            imvPhoto.setImageBitmap(bitmap);
         }
 
         EditText etDateVote = findViewById(R.id.etDateVote);
@@ -134,7 +138,7 @@ public class AddEventActivity extends AppCompatActivity {
                     return;
                 }
 
-                Uri currentPhotoPath = vm.currentPhotoPath;
+                String currentPhotoPath = vm.currentPhotoPath;
                 if(currentPhotoPath == null){
                     Toast.makeText(AddEventActivity.this, "O campo foto  não foi preenchido", Toast.LENGTH_LONG).show();
                     v.setEnabled(true);
@@ -201,6 +205,7 @@ public class AddEventActivity extends AppCompatActivity {
                             httpRequest.addParam("prazov", dtVote);
                             httpRequest.addParam("prazos", dtSuggest);
                             httpRequest.addParam("ids", ids);
+                            httpRequest.addFile("img", new File(currentPhotoPath));
                             httpRequest.setBasicAuth(login, password);
 
                             try {
@@ -250,13 +255,15 @@ public class AddEventActivity extends AppCompatActivity {
         if(requestCode == PHOTO_PICKER_REQUEST){
             if(resultCode == RESULT_OK){
                 Uri photoPath = data.getData();
+                String currentPhotoPath = Util.getPathFromUri(this,photoPath);
                 ImageView imvPhoto = findViewById(R.id.imvPhoto);
-                imvPhoto.setImageURI(photoPath);
-                File f = new File(photoPath.toString());
-                Log.i("arquivo de imagem", f.getAbsolutePath());
+                Bitmap bitmap = Util.getBitmap(currentPhotoPath, imvPhoto.getWidth(), imvPhoto.getHeight());
+                imvPhoto.setImageBitmap(bitmap);
+                File f = new File(currentPhotoPath);
                 AddEventViewModel vm = new ViewModelProvider(this).get(AddEventViewModel.class);
-                vm.setCurrentPhotoPath(photoPath);
+                vm.setCurrentPhotoPath(currentPhotoPath);
             }
         }
     }
+
 }

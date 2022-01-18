@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -51,6 +52,7 @@ public class AllEventsAdapter extends RecyclerView.Adapter {
         TextView tvLocation;
         TextView tvParticipants;
         TextView tvDate;
+        ImageView imvPhoto;
 
 
         switch (getItemViewType(position)){
@@ -59,6 +61,9 @@ public class AllEventsAdapter extends RecyclerView.Adapter {
                 Log.i("Convite", String.valueOf(event.status_invite));
                 tvTitle = holder.itemView.findViewById(R.id.tvTitle);
                 tvTitle.setText(event.name);
+
+                imvPhoto = holder.itemView.findViewById(R.id.imvPhotoEv);
+                imvPhoto.setImageBitmap(event.img);
 
                 tvDescription = holder.itemView.findViewById(R.id.tvDescription);
                 tvDescription.setText(event.description);
@@ -92,6 +97,9 @@ public class AllEventsAdapter extends RecyclerView.Adapter {
             case 0:
                 tvTitle = holder.itemView.findViewById(R.id.tvTitleI);
                 tvTitle.setText(event.name);
+
+                imvPhoto = holder.itemView.findViewById(R.id.imvPhotoEvI);
+                imvPhoto.setImageBitmap(event.img);
 
                 tvDescription = holder.itemView.findViewById(R.id.tvDescI);
                 tvDescription.setText(event.description);

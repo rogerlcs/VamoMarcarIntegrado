@@ -92,6 +92,10 @@ public class AllEventsViewModel extends ViewModel {
                             String dateV= jEvent.getString("prazo_votacao");
                             int total = jEvent.getInt("total");
 
+                            String imgBase64 = jEvent.getString("img");
+                            String pureBase64Encoded = imgBase64.substring(imgBase64.indexOf(",") + 1);
+                            Bitmap img = Util.base642Bitmap(pureBase64Encoded);
+
                             Timestamp tsS = Timestamp.valueOf(dateS);
                             Timestamp tsV = Timestamp.valueOf(dateV);
 
@@ -102,9 +106,10 @@ public class AllEventsViewModel extends ViewModel {
                             calendarV.setTime(tsV);
 
 
-                            Event event = new Event(id, name, description, calendarV, calendarS, finalDate, address, localname, status_event, status_invite, total);
-
+                            Event event = new Event(id, name, description, calendarV, calendarS, finalDate, address, localname, status_event, status_invite, total, img);
                             eventLists.add(event);
+
+
                         }
 
                         events.postValue(eventLists);

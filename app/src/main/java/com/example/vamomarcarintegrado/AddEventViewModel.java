@@ -22,7 +22,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class AddEventViewModel extends ViewModel {
-    Uri currentPhotoPath = null;
+    String currentPhotoPath = "";
     MutableLiveData<List<User>> users;
     List<String> ids;
 
@@ -37,6 +37,7 @@ public class AddEventViewModel extends ViewModel {
         List<User> users1 = new ArrayList<>();
         final String login = Config.getLogin(context);
         final String password = Config.getPassword(context);
+        final String idusuario = Config.getId(context);
 
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(new Runnable() {
@@ -61,7 +62,9 @@ public class AddEventViewModel extends ViewModel {
                             String id = jUser.getString("id");
                             String name = jUser.getString("nome");
                             User user = new User(id, name);
-                            users1.add(user);
+                            if(idusuario != id){
+                                users1.add(user);
+                            }
                         }
                         Log.i("usuarios:", String.valueOf(users1.size()));
                         users.postValue(users1);
@@ -75,11 +78,11 @@ public class AddEventViewModel extends ViewModel {
         return users;
     }
 
-    public Uri getCurrentPhotoPath() {
+    public String getCurrentPhotoPath() {
         return currentPhotoPath;
     }
 
-    public void setCurrentPhotoPath(Uri currentPhotoPath) {
+    public void setCurrentPhotoPath(String currentPhotoPath) {
         this.currentPhotoPath = currentPhotoPath;
     }
 }

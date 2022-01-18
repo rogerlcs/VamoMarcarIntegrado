@@ -2,6 +2,7 @@ package com.example.vamomarcarintegrado;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
@@ -43,8 +44,9 @@ public class Event {
     int status_event;
     int total;
     int status_invite;
+    Bitmap img;
 
-    public Event(String id, String name, String description, Calendar dateV, Calendar dateS, String finalDate, String local, String localName, List<Data> dates, List<User> users, int status_event) {
+    public Event(String id, String name, String description, Calendar dateV, Calendar dateS, String finalDate, String local, String localName, List<Data> dates, List<User> users, int status_event, Bitmap img) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -56,11 +58,13 @@ public class Event {
         this.dates = dates;
         this.users = users;
         this.status_event = status_event;
+        this.img = img;
     }
 
 
 
-    public Event(String id, String name, String description, Calendar dateV, Calendar dateS, String finalDate, String local, String localName, int status_event, int status_invite, int total) {
+
+    public Event(String id, String name, String description, Calendar dateV, Calendar dateS, String finalDate, String local, String localName, int status_event, int status_invite, int total, Bitmap img) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -72,6 +76,7 @@ public class Event {
         this.status_event = status_event;
         this.status_invite = status_invite;
         this.total = total;
+        this.img = img;
     }
 
     public void setStatusEvent(int status, Context context){

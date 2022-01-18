@@ -1,6 +1,7 @@
 package com.example.vamomarcarintegrado;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -89,6 +90,10 @@ public class InProgressViewModel extends ViewModel {
                         String dateS = jEvent.getString("prazo_sugestao");
                         String dateV= jEvent.getString("prazo_votacao");
 
+                        String imgBase64 = jEvent.getString("img");
+                        String pureBase64Encoded = imgBase64.substring(imgBase64.indexOf(",") + 1);
+                        Bitmap img = Util.base642Bitmap(pureBase64Encoded);
+
                         JSONArray jsonArrayDatas =jEvent.getJSONArray("datas");
 
                         for (int i = 0; i < jsonArrayDatas.length(); i++){
@@ -135,7 +140,7 @@ public class InProgressViewModel extends ViewModel {
 
 
 
-                        Event event1 = new Event(idevent, name, description, calendarV, calendarS, finalDate, address, localname, dataLists, userList, status_event);
+                        Event event1 = new Event(idevent, name, description, calendarV, calendarS, finalDate, address, localname, dataLists, userList, status_event,img);
                         Log.d("HTTP_REQUEST_RESULT", event1.id);
 
                         event.postValue(event1);

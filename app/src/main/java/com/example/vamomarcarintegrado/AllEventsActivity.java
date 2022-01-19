@@ -89,4 +89,19 @@ public class AllEventsActivity extends AppCompatActivity {
             }
         }
     }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        super.onOptionsItemSelected(item);
+        switch (item.getItemId()){
+            case R.id.opPerfil:
+                Intent i = new Intent(AllEventsActivity.this,PerfilActivity.class);
+                final String id = Config.getId(this);
+                i.putExtra("id", id);
+                startActivity(i);
+                return true;
+            default:
+                return onOptionsItemSelected(item);
+        }
+    }
 }

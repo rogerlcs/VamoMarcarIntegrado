@@ -1,6 +1,7 @@
 package com.example.vamomarcarintegrado;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +43,14 @@ public class ParticipantAdapter extends RecyclerView.Adapter {
         CheckBox ckbUser = holder.itemView.findViewById(R.id.ckbUser);
         ckbUser.setVisibility(View.INVISIBLE);
         ckbUser.setClickable(false);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(context,PerfilActivity.class);
+                i.putExtra("id", user.id);
+                context.startActivity(i);
+            }
+        });
 
 
     }

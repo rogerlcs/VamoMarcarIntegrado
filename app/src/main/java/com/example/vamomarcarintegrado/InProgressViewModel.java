@@ -26,7 +26,6 @@ import java.util.concurrent.Executors;
 public class InProgressViewModel extends ViewModel {
     MutableLiveData<Event> event;
     Context context;
-    List<Integer> administradores;
     String id;
 
     public InProgressViewModel(Context context, String id) {

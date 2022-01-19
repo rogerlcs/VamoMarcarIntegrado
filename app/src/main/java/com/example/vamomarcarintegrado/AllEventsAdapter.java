@@ -78,6 +78,14 @@ public class AllEventsAdapter extends RecyclerView.Adapter {
 
                 if(event.status_event == 3){
                         tvDate.setText(event.getData() + "    " + event.getHour());
+                        holder.itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent i = new Intent(context, EventActivity.class);
+                                i.putExtra("id", event.id);
+                                context.startActivity(i);
+                            }
+                        });
 
                 }
 

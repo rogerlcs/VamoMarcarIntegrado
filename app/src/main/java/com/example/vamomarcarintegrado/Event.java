@@ -33,6 +33,7 @@ import java.util.concurrent.TimeUnit;
 public class Event {
     String id;
     String name;
+    int admin;
     String description;
     Calendar dateV;
     Calendar dateS;
@@ -59,6 +60,22 @@ public class Event {
         this.users = users;
         this.status_event = status_event;
         this.img = img;
+    }
+
+    public Event(String id, String name, String description, Calendar dateV, Calendar dateS, String finalDate, String local, String localName, List<Data> dates, List<User> users, int status_event, Bitmap img, int admin) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.dateV = dateV;
+        this.dateS = dateS;
+        this.finalDate = finalDate;
+        this.local = local;
+        this.localName = localName;
+        this.dates = dates;
+        this.users = users;
+        this.status_event = status_event;
+        this.img = img;
+        this.admin = admin;
     }
 
 

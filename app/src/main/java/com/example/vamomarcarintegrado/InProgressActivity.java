@@ -10,11 +10,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -94,21 +96,37 @@ public class InProgressActivity extends AppCompatActivity {
                 ImageButton imageButton = findViewById(R.id.imbSugestao);
 
 
+                ImageView imbMapView = findViewById(R.id.imbMapView);
+                imbMapView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse("geo:0,0?q=" + event.local));
+                        Log.i("Click:", "clickei");
+                        if (intent.resolveActivity(getPackageManager()) != null) {
+                            startActivity(intent);
+                        }
+                    }
+                });
+
+
                 TextView tvCronometro = findViewById(R.id.tvCronometro);
 
                 event.startTime(InProgressActivity.this, tvCronometro);
                 FloatingActionButton floatingActionButton = findViewById(R.id.fabMarcar);
 
-                if(event.status_event != 2){
-                    floatingActionButton.setClickable(false);
-                    floatingActionButton.setVisibility(View.INVISIBLE);
-                    Log.i("Texto cronometro: ", tvCronometro.getText().toString());
-                }
-                else{
+                if(event.status_event == 2 && event.admin == 1){
                     floatingActionButton.setClickable(true);
                     floatingActionButton.setVisibility(View.VISIBLE);
                     Log.i("Texto cronometro: ", tvCronometro.getText().toString());
                 }
+                else{
+                    floatingActionButton.setClickable(false);
+                    floatingActionButton.setVisibility(View.INVISIBLE);
+                    Log.i("Texto cronometro: ", tvCronometro.getText().toString());
+                }
+
+
 
 
 
@@ -163,7 +181,7 @@ public class InProgressActivity extends AppCompatActivity {
 
                                                 HttpRequest httpRequest = new HttpRequest(Config.SERVER_URL_BASE + "get_winning_dates.php", "GET", "UTF-8");
                                                 httpRequest.setBasicAuth(login, password);
-                                                httpRequest.addParam("idevento", idevento);
+                                                httpRequest.addParam("idevento", event.id);
 
                                                 try {
                                                     InputStream is = httpRequest.execute();
@@ -338,7 +356,9 @@ public class InProgressActivity extends AppCompatActivity {
                         public void run() {
                             if(success == 1){
                                 Toast.makeText(InProgressActivity.this, "Evento Marcado!",Toast.LENGTH_LONG).show();
-                                finish();
+                                Intent i = new Intent(InProgressActivity.this,EventActivity.class);
+                                i.putExtra("id", idevento);
+                                startActivity(i);
                             }
                             else {
                                 try {

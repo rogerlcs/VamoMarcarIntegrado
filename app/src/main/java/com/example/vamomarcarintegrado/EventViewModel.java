@@ -23,13 +23,12 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class InProgressViewModel extends ViewModel {
+public class EventViewModel extends ViewModel {
     MutableLiveData<Event> event;
     Context context;
-    List<Integer> administradores;
     String id;
 
-    public InProgressViewModel(Context context, String id) {
+    public EventViewModel(Context context, String id) {
         this.context = context;
         this.id = id;
     }
@@ -89,7 +88,6 @@ public class InProgressViewModel extends ViewModel {
                         String localname = jEvent.getString("nome_local");
                         String dateS = jEvent.getString("prazo_sugestao");
                         String dateV= jEvent.getString("prazo_votacao");
-                        int admin = jEvent.getInt("admin");
 
                         String imgBase64 = jEvent.getString("img");
                         String pureBase64Encoded = imgBase64.substring(imgBase64.indexOf(",") + 1);
@@ -141,7 +139,7 @@ public class InProgressViewModel extends ViewModel {
 
 
 
-                        Event event1 = new Event(idevent, name, description, calendarV, calendarS, finalDate, address, localname, dataLists, userList, status_event,img, admin);
+                        Event event1 = new Event(idevent, name, description, calendarV, calendarS, finalDate, address, localname, dataLists, userList, status_event,img);
                         Log.d("HTTP_REQUEST_RESULT", event1.id);
 
                         event.postValue(event1);
@@ -155,12 +153,12 @@ public class InProgressViewModel extends ViewModel {
         });
     }
 
-    static public class InProgressViewModelFactory implements ViewModelProvider.Factory {
+    static public class EventViewModelFactory implements ViewModelProvider.Factory {
 
         Context context;
         String id;
 
-        public InProgressViewModelFactory(Context context, String id) {
+        public EventViewModelFactory(Context context, String id) {
             this.context = context;
             this.id = id;
         }
@@ -169,8 +167,7 @@ public class InProgressViewModel extends ViewModel {
         @Override
         public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
 
-            return (T) new InProgressViewModel(context, id);
+            return (T) new EventViewModel(context, id);
         }
     }
-
 }

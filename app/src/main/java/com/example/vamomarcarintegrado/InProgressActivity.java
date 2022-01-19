@@ -1,5 +1,6 @@
 package com.example.vamomarcarintegrado;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +23,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
@@ -136,6 +138,8 @@ public class InProgressActivity extends AppCompatActivity {
                 tvLocalEvS.setText("Local: " + event.local);
 
 
+
+
                 ImageButton imbSugestao = findViewById(R.id.imbSugestao);
                 imbSugestao.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -156,6 +160,15 @@ public class InProgressActivity extends AppCompatActivity {
                         datePickerDialog.show();
                     }
                 });
+
+                if(event.status_event > 0){
+                    imbSugestao.setClickable(false);
+                    imbSugestao.setVisibility(View.INVISIBLE);
+                }
+                else {
+                    imbSugestao.setClickable(true);
+                    imbSugestao.setVisibility(View.VISIBLE);
+                }
 
 
                 floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -439,5 +452,71 @@ public class InProgressActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void sairEvento(){
+        final String login = Config.getLogin(InProgressActivity.this);
+        final String password = Config.getPassword(InProgressActivity.this);
+
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        //Executando a thread
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                //Criando a requisicao com o servidor
+                HttpRequest httpRequest = new HttpRequest(Config.SERVER_URL_BASE + "leave_event.php", "POST", "UTF-8");
+
+                //Adicionando os parametros do produto na requisicao
+                httpRequest.addParam("idevento", idevento);
+                httpRequest.setBasicAuth(login, password);
+
+                try {
+                    InputStream is = httpRequest.execute();
+                    String result = Util.inputStream2String(is,"UTF-8");
+                    Log.d("HTTP_REQUEST_RESULT", result);
+                    //Finalizando a requisicao
+                    httpRequest.finish();
+
+                    //Criando um JSONObject do resultado da requisicao
+                    JSONObject jsonObject = new JSONObject(result);
+                    //Obtendo o valor referente a chave success
+                    int success = jsonObject.getInt("success");
+                    //Execuntando o codigo na thread da interface
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(success == 1){
+                                Intent i = new Intent(InProgressActivity.this,AllEventsFragment.class);
+                                startActivity(i);
+                            }
+                            else {
+                                try {
+                                    final String error = jsonObject.getString("error");
+                                    Toast.makeText(InProgressActivity.this, error,Toast.LENGTH_LONG).show();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        }
+                    });
+
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        super.onOptionsItemSelected(item);
+        switch (item.getItemId()){
+            case R.id.leaveEvent:
+                sairEvento();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/leaveEvent"
         android:icon="@drawable/ic_baseline_calendar_today_24"
         android:title="Sair do Evento" />
 </menu>

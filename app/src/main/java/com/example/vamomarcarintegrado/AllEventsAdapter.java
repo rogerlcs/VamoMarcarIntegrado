@@ -120,6 +120,14 @@ public class AllEventsAdapter extends RecyclerView.Adapter {
                         event.setStatusinvite(context,1);
                     }
                 });
+
+                Button btnReject = holder.itemView.findViewById(R.id.btnReject);
+                btnReject.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        event.setStatusinvite(context,2);
+                    }
+                });
                 break;
         }
 

@@ -140,7 +140,7 @@ public class AddEventActivity extends AppCompatActivity {
                 }
 
                 String currentPhotoPath = vm.currentPhotoPath;
-                if(currentPhotoPath == null){
+                if(currentPhotoPath == ""){
                     Toast.makeText(AddEventActivity.this, "O campo foto  não foi preenchido", Toast.LENGTH_LONG).show();
                     v.setEnabled(true);
                     return;

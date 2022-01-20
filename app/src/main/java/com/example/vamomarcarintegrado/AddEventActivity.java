@@ -36,6 +36,7 @@ import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -182,8 +183,35 @@ public class AddEventActivity extends AppCompatActivity {
 
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 try {
-                    String dtVote = new SimpleDateFormat("yyyy-MM-dd").format(sdf.parse(dateVote));
-                    String dtSuggest = new SimpleDateFormat("yyyy-MM-dd").format(sdf.parse(dateSuggest));
+
+                    Calendar calendarAtual = Calendar.getInstance();
+                    Calendar calendardtVote = Calendar.getInstance();
+                    Calendar calendardtSuggest = Calendar.getInstance();
+                    calendardtSuggest.setTime(sdf.parse(dateSuggest));
+                    calendardtVote.setTime(sdf.parse(dateVote));
+
+                    calendardtSuggest.set(Calendar.HOUR_OF_DAY,23);
+                    calendardtSuggest.set(Calendar.MINUTE,55);
+                    calendardtSuggest.set(Calendar.SECOND, 0);
+
+                    calendardtVote.set(Calendar.HOUR_OF_DAY,23);
+                    calendardtVote.set(Calendar.MINUTE,55);
+                    calendardtVote.set(Calendar.SECOND, 0);
+
+                    if(!calendardtSuggest.after(calendarAtual)){
+                        Toast.makeText(AddEventActivity.this, "A data inserida precisa ser após a data atual", Toast.LENGTH_LONG).show();
+                        v.setEnabled(true);
+                        return;
+                    }
+
+                    if(!calendardtVote.after(calendardtSuggest)){
+                        Toast.makeText(AddEventActivity.this, "A data inserida precisa ser após a data de sugestão", Toast.LENGTH_LONG).show();
+                        v.setEnabled(true);
+                        return;
+                    }
+
+                    String dtVote = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(calendardtVote.getTime());
+                    String dtSuggest = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(calendardtSuggest.getTime());
                     String ids = TextUtils.join(",", vm.ids);
 
                     final String login = Config.getLogin(AddEventActivity.this);

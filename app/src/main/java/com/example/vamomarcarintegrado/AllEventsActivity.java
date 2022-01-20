@@ -36,7 +36,8 @@ public class AllEventsActivity extends AppCompatActivity {
                 startActivityForResult(i, ADD_EVENT_ACTIVITY);
             }
         });
-
+        AllEventsFragment allEventsFragment = AllEventsFragment.newInstance();
+        setFragment(allEventsFragment);
         BottomNavigationView bottomNavigationView = findViewById(R.id.btNav);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

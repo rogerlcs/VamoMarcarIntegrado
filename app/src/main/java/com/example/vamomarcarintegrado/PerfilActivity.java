@@ -1,5 +1,6 @@
 package com.example.vamomarcarintegrado;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -13,9 +14,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class PerfilActivity extends AppCompatActivity {
+    static int EDIT_PERFIL_RESULT = 1;
+    String idperfil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,7 @@ public class PerfilActivity extends AppCompatActivity {
         String id = i.getStringExtra("id");
 
         String iduser = Config.getId(this);
+        idperfil = id;
 
 
 
@@ -49,6 +54,11 @@ public class PerfilActivity extends AppCompatActivity {
 
                 TextView tvDtNasc = findViewById(R.id.tvDtNasc);
                 tvDtNasc.setText(user.getDay() + " de " + user.getMonthName() + " de " + user.getYear());
+
+                if(user.img != null){
+                    ImageView imvPerfil = findViewById(R.id.imvPerfil);
+                    imvPerfil.setImageBitmap(user.img);
+                }
 
                 TextView tvLocalPerfil = findViewById(R.id.tvLocalPerfil);
                 tvLocalPerfil.setText(user.estado);
@@ -72,6 +82,14 @@ public class PerfilActivity extends AppCompatActivity {
                     btnLogout.setVisibility(View.INVISIBLE);
                     btnLogout.setClickable(false);
                 }
+                imbEditPerfil.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(PerfilActivity.this, EditPerfilActivity.class);
+                        intent.putExtra("id",user.id);
+                        startActivityForResult(intent, EDIT_PERFIL_RESULT);
+                    }
+                });
 
 
                 btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -87,5 +105,16 @@ public class PerfilActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == EDIT_PERFIL_RESULT){
+            if(resultCode == RESULT_OK){
+                PerfilViewModel vm = new ViewModelProvider(this, new PerfilViewModel.PerfilViewModelFactory(idperfil,this)).get(PerfilViewModel.class);
+                vm.refreshUser();
+            }
+        }
     }
 }

@@ -57,6 +57,9 @@ public class EventActivity extends AppCompatActivity {
                 TextView tvDescEv = findViewById(R.id.tvDescEv);
                 tvDescEv.setText(event.description);
 
+                TextView tvLocalEv = findViewById(R.id.tvLocalEv);
+                tvLocalEv.setText("Local: " + event.local);
+
                 TextView tvHoraData = findViewById(R.id.tvHoraData);
                 tvHoraData.setText("Hora e Data: "+ event.getData() + "  " + event.getHour());
 

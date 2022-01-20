@@ -12,7 +12,6 @@
         android:layout_width="@dimen/im_width"
         android:layout_height="@dimen/im_height"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,41 +22,34 @@
         android:id="@+id/tvTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="TextView"
-        android:textSize="24sp"
+        android:text="Nome Evento"
+        android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imvPhotoEv"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/imvPhotoEv" />
 
     <TextView
         android:id="@+id/tvDescription"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="4dp"
-        android:text="ereresd"
-        app:layout_constraintBottom_toTopOf="@+id/tvParticipants"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imvPhotoEv"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+        android:text="Descrição"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imvPhotoEv" />
 
     <TextView
         android:id="@+id/tvParticipants"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="TextView"
+        android:layout_marginBottom="8dp"
+        android:text="N participantes"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/imvPhotoEv"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -65,13 +57,13 @@
         android:id="@+id/tvLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        android:text="TextView"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/imvPhotoEv"
-        app:layout_constraintTop_toBottomOf="@+id/imvPhotoEv" />
+        android:text="nome Local"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toEndOf="@+id/imvPhotoEv"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
     <TextView
         android:id="@+id/tvDate"
@@ -79,11 +71,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:text="TextView"
+        android:text="Cronometro"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvLocation" />
+        app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

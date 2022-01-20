@@ -23,7 +23,7 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tbEventoSugestao"
         app:layout_constraintVertical_bias="0.0">
@@ -34,11 +34,16 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvParticpSugestao"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="@+id/textView14"
+                app:layout_constraintTop_toBottomOf="@+id/textView14">
 
             </androidx.recyclerview.widget.RecyclerView>
 
@@ -46,68 +51,63 @@
                 android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
                 android:text="Participantes:"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/rvParticpSugestao"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:textSize="20sp"
+                android:textStyle="normal|italic"
+                app:layout_constraintStart_toStartOf="@+id/tvDataHoraS"
+                app:layout_constraintTop_toBottomOf="@+id/imbMapView" />
 
             <ImageView
                 android:id="@+id/imbMapView"
                 android:layout_width="@dimen/im_width"
                 android:layout_height="@dimen/im_height"
                 android:layout_marginStart="32dp"
-                android:layout_marginLeft="32dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="24dp"
-                android:layout_marginRight="24dp"
-                android:layout_marginBottom="32dp"
                 android:scaleType="fitXY"
-                app:layout_constraintBottom_toTopOf="@+id/textView14"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvLocalEvS"
                 app:srcCompat="@android:drawable/ic_dialog_map"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
                 android:id="@+id/tvLocalEvS"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginTop="48dp"
+                android:layout_marginEnd="8dp"
                 android:text="Local: Parque da Cidade"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/imbMapView"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tvDataHoraS"
+                app:layout_constraintTop_toBottomOf="@+id/rvDatasSugestoes" />
 
             <TextView
                 android:id="@+id/tvDataHoraS"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="Data:"
-                android:textSize="20sp"
+                android:layout_marginTop="24dp"
+                android:text="Data e Hora:"
+                android:textSize="22sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/rvDatasSugestoes"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="@+id/tvNomeSugestao"
+                app:layout_constraintTop_toBottomOf="@+id/tvCronometro" />
 
             <TextView
                 android:id="@+id/tvDescEvS"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/desc_height"
                 android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
                 android:text="TextView"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/tvDataHoraS"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tvDesctv"
                 app:layout_constraintTop_toBottomOf="@+id/tvDesctv" />
 
             <ImageView
@@ -127,62 +127,61 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
                 android:layout_marginTop="8dp"
-                android:text="Parque"
-                android:textSize="24sp"
+                android:text="Nome Evento"
+                android:textSize="34sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvCronometro" />
+                app:layout_constraintTop_toBottomOf="@+id/imvEventInProgress" />
 
             <TextView
                 android:id="@+id/tvDesctv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
                 android:layout_marginTop="16dp"
                 android:text="Descrição:"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
+                android:textSize="14sp"
+                android:textStyle="normal|italic"
+                app:layout_constraintStart_toStartOf="@+id/tvNomeSugestao"
                 app:layout_constraintTop_toBottomOf="@+id/tvNomeSugestao" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvDatasSugestoes"
-                android:layout_width="200dp"
-                android:layout_height="150dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/tvLocalEvS"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tvDataHoraS"
+                app:layout_constraintTop_toBottomOf="@+id/tvDataHoraS" />
 
             <ImageButton
                 android:id="@+id/imbSugestao"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="24dp"
                 android:background="#00FFFFFF"
-                app:layout_constraintBottom_toTopOf="@+id/rvDatasSugestoes"
+                android:scaleType="fitXY"
+                app:layout_constraintBottom_toBottomOf="@+id/tvDataHoraS"
                 app:layout_constraintStart_toEndOf="@+id/tvDataHoraS"
+                app:layout_constraintTop_toTopOf="@+id/tvDataHoraS"
                 app:srcCompat="@drawable/ic_baseline_add_circle_24" />
 
             <TextView
                 android:id="@+id/tvCronometro"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:text="TextView"
+                android:layout_marginTop="16dp"
+                android:background="@color/CORnometro"
+                android:text="Status do Evento"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imvEventInProgress" />
+                app:layout_constraintTop_toBottomOf="@+id/tvDescEvS" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

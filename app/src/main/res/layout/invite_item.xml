@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#E6E5E5">
+    android:background="#4D808080">
 
     <ImageView
         android:id="@+id/imvPhotoEvI"
@@ -23,11 +23,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="TextView"
+        android:text="Nome Evento"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,92 +34,66 @@
 
     <TextView
         android:id="@+id/tvDescI"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="4dp"
-        android:text="ereresd"
-        app:layout_constraintBottom_toTopOf="@+id/tvParticipantsI"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imvPhotoEvI"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitleI" />
+        android:text="descricao"
+        app:layout_constraintStart_toStartOf="@+id/imvPhotoEvI"
+        app:layout_constraintTop_toBottomOf="@+id/imvPhotoEvI" />
 
     <TextView
         android:id="@+id/tvParticipantsI"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="TextView"
+        android:layout_marginBottom="8dp"
+        android:text="Participantes"
         app:layout_constraintBottom_toBottomOf="@+id/imvPhotoEvI"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <View
-        android:id="@+id/divider2I"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imvPhotoEvI"
-        app:layout_constraintTop_toBottomOf="@+id/tvParticipantsI" />
 
     <TextView
         android:id="@+id/tvLocationI"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:text="TextView"
+        android:text="Local"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider2I" />
+        app:layout_constraintStart_toStartOf="@+id/tvTitleI"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleI" />
 
     <TextView
         android:id="@+id/tvDateI"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"
         android:text="Pendente:"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvLocationI" />
+        app:layout_constraintStart_toStartOf="@+id/imvPhotoEvI"
+        app:layout_constraintTop_toBottomOf="@+id/tvDescI" />
 
     <Button
         android:id="@+id/btnAccept"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginLeft="48dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginStart="16dp"
         android:text="Aceitar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnReject"
-        app:layout_constraintStart_toEndOf="@+id/tvDateI" />
+        app:layout_constraintBottom_toBottomOf="@+id/tvDateI"
+        app:layout_constraintStart_toEndOf="@+id/tvDateI"
+        app:layout_constraintTop_toTopOf="@+id/tvDateI" />
 
     <Button
         android:id="@+id/btnReject"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginStart="48dp"
         android:text="Recusar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/btnAccept"
+        app:layout_constraintStart_toEndOf="@+id/btnAccept"
+        app:layout_constraintTop_toTopOf="@+id/btnAccept" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

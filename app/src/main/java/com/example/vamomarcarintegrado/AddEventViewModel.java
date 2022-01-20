@@ -1,6 +1,7 @@
 package com.example.vamomarcarintegrado;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.util.Log;
 import android.widget.TextView;
@@ -61,8 +62,20 @@ public class AddEventViewModel extends ViewModel {
                             JSONObject jUser = jsonArray.getJSONObject(i);
                             String id = jUser.getString("id");
                             String name = jUser.getString("nome");
-                            User user = new User(id, name);
-                            if(idusuario != id){
+                            String imgBase64 = jUser.getString("img");
+
+                            User user;
+
+                            if(imgBase64.equalsIgnoreCase("null")){
+                                user = new User(id, name);
+                            }
+                            else {
+                                String pureBase64Encoded = imgBase64.substring(imgBase64.indexOf(",") + 1);
+                                Bitmap img = Util.base642Bitmap(pureBase64Encoded);
+                                user = new User(id, name, img);
+                            }
+
+                            if(!idusuario.equalsIgnoreCase(id)){
                                 users1.add(user);
                             }
                         }

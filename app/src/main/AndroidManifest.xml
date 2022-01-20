@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VamoMarcarIntegrado">
-        <activity android:name=".PerfilActivity"></activity>
+        <activity android:name=".EditPerfilActivity"></activity>
+        <activity android:name=".PerfilActivity" />
         <activity
             android:name=".EventActivity"
             android:parentActivityName=".AllEventsActivity">

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -39,6 +40,12 @@ public class ParticipantAdapter extends RecyclerView.Adapter {
 
         TextView tvNameAdd = holder.itemView.findViewById(R.id.tvNameAdd);
         tvNameAdd.setText(user.nome);
+
+
+        ImageView imvPhotoAdd = holder.itemView.findViewById(R.id.imvPhotoAdd);
+        if(user.img != null){
+            imvPhotoAdd.setImageBitmap(user.img);
+        }
 
         CheckBox ckbUser = holder.itemView.findViewById(R.id.ckbUser);
         ckbUser.setVisibility(View.INVISIBLE);

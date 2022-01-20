@@ -16,35 +16,91 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class PerfilViewModel extends ViewModel {
-    MutableLiveData<User> user;
+public class EditPerfilViewModel extends ViewModel {
     String id;
-    Context context;
+    String currentPhotoPath = "";
 
-    public PerfilViewModel(String id, Context context) {
+    public void setCurrentPhotoPath(String currentPhotoPath) {
+        this.currentPhotoPath = currentPhotoPath;
+    }
+
+    public String getCurrentPhotoPath() {
+        return currentPhotoPath;
+    }
+
+    MutableLiveData<ArrayList<String>> estados;
+    Context context;
+    MutableLiveData<User> user;
+
+    public EditPerfilViewModel(String id, Context context) {
         this.id = id;
         this.context = context;
     }
 
+    public LiveData<ArrayList<String>> getEstados(){
+        if(estados == null){
+            estados = new MutableLiveData<ArrayList<String>>();
+            loadEstados();
+        }
+        return estados;
+    }
+
     public LiveData<User> getUser(){
         if(this.user == null){
-            loadUser();
             user = new MutableLiveData<User>();
+            loadUser();
         }
         return user;
     }
 
-    public void refreshUser(){
-        loadUser();
+    public void loadEstados(){
+        ArrayList<String> arrayList = new ArrayList<>();
+        final String login = Config.getLogin(context);
+        final String password = Config.getPassword(context);
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+
+
+                HttpRequest httpRequest = new HttpRequest(Config.SERVER_URL_BASE + "get_estados.php", "GET", "UTF-8");
+                httpRequest.setBasicAuth(login, password);
+
+                try {
+                    InputStream is = httpRequest.execute();
+                    String result = Util.inputStream2String(is,"UTF-8");
+                    Log.d("HTTP_REQUEST_RESULT", result);
+
+                    httpRequest.finish();
+
+
+                    JSONObject jsonObject = new JSONObject(result);
+
+                    int success = jsonObject.getInt("success");
+                    if(success == 1){
+                        JSONArray jsonArray = jsonObject.getJSONArray("estados");
+                        for(int i = 0; i < jsonArray.length(); i++){
+                            JSONObject jEstado = jsonArray.getJSONObject(i);
+                            String nome = jEstado.getString("nome");
+
+                            arrayList.add(nome);
+                        }
+                        estados.postValue(arrayList);
+                    }
+
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
     }
 
     public void loadUser(){
@@ -80,19 +136,7 @@ public class PerfilViewModel extends ViewModel {
                         String bio = jUSer.getString("bio");
                         String dtNasc = jUSer.getString("data_nascimento");
                         String estado = jUSer.getString("estado");
-
                         String imgBase64 = jUSer.getString("img");
-
-
-
-
-                        if(bio.equalsIgnoreCase("null")){
-                            bio = "Adicione a bio para visualizar";
-                        }
-
-                        if(estado.equalsIgnoreCase("null")){
-                            estado = "Adicione o estado para visualizar";
-                        }
 
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                         Calendar calendar = Calendar.getInstance();
@@ -118,12 +162,12 @@ public class PerfilViewModel extends ViewModel {
         });
     }
 
-    static public class PerfilViewModelFactory implements ViewModelProvider.Factory {
+    static public class EditPerfilViewModelFactory implements ViewModelProvider.Factory {
 
         Context context;
         String id;
 
-        public PerfilViewModelFactory(String id, Context context) {
+        public EditPerfilViewModelFactory(String id, Context context) {
             this.context = context;
             this.id = id;
         }
@@ -132,8 +176,7 @@ public class PerfilViewModel extends ViewModel {
         @Override
         public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
 
-            return (T) new PerfilViewModel(id, context);
+            return (T) new EditPerfilViewModel(id, context);
         }
     }
-
 }

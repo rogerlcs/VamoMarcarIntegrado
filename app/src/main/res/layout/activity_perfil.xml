@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/imvPerfil"
         android:layout_width="@dimen/im_width"
         android:layout_height="@dimen/im_height"
         android:layout_marginStart="16dp"
@@ -40,8 +40,8 @@
         android:text="Leonardo Santana"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
-        app:layout_constraintStart_toEndOf="@+id/imageView4" />
+        app:layout_constraintBottom_toBottomOf="@+id/imvPerfil"
+        app:layout_constraintStart_toEndOf="@+id/imvPerfil" />
 
     <TextView
         android:id="@+id/tvBioPerfil"
@@ -55,8 +55,8 @@
         android:text="Bio:"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/imageView4"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+        app:layout_constraintStart_toStartOf="@+id/imvPerfil"
+        app:layout_constraintTop_toBottomOf="@+id/imvPerfil" />
 
     <ImageView
         android:id="@+id/imageView5"

@@ -32,11 +32,15 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvParticp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="@+id/textView14"
+                app:layout_constraintTop_toBottomOf="@+id/textView14">
 
             </androidx.recyclerview.widget.RecyclerView>
 
@@ -44,68 +48,61 @@
                 android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
                 android:text="Participantes:"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/rvParticp"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:textSize="20sp"
+                android:textStyle="italic"
+                app:layout_constraintStart_toStartOf="@+id/tvHoraData"
+                app:layout_constraintTop_toBottomOf="@+id/imMapView" />
 
             <ImageView
                 android:id="@+id/imMapView"
                 android:layout_width="@dimen/im_width"
                 android:layout_height="@dimen/im_height"
                 android:layout_marginStart="32dp"
-                android:layout_marginLeft="32dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="24dp"
-                android:layout_marginRight="24dp"
-                android:layout_marginBottom="32dp"
                 android:scaleType="fitXY"
-                app:layout_constraintBottom_toTopOf="@+id/textView14"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvLocalEv"
                 app:srcCompat="@android:drawable/ic_dialog_map"
-                tools:srcCompat="@tools:sample/avatars" />
+                tools:srcCompat="@android:drawable/ic_dialog_map" />
 
             <TextView
                 android:id="@+id/tvLocalEv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="Local: Parque da Cidade"
-                android:textSize="16sp"
+                android:layout_marginTop="32dp"
+                android:text="Local: "
+                android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/imMapView"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="@+id/tvHoraData"
+                app:layout_constraintTop_toBottomOf="@+id/tvHoraData" />
 
             <TextView
                 android:id="@+id/tvHoraData"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginBottom="32dp"
-                android:text="Hora e Data:"
-                android:textSize="20sp"
+                android:layout_marginTop="32dp"
+                android:text="Data e Hora:"
+                android:textSize="22sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/tvLocalEv"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="@+id/tvNome"
+                app:layout_constraintTop_toBottomOf="@+id/tvDescEv" />
 
             <TextView
                 android:id="@+id/tvDescEv"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/desc_height"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginBottom="8dp"
                 android:text="TextView"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/tvHoraData"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tvDesctv"
                 app:layout_constraintTop_toBottomOf="@+id/tvDesctv" />
 
             <ImageView
@@ -123,12 +120,11 @@
             <TextView
                 android:id="@+id/tvNome"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
                 android:layout_marginTop="8dp"
-                android:text="Parque"
-                android:textSize="24sp"
+                android:text="Nome Evento"
+                android:textSize="32sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imEvento" />
@@ -137,13 +133,11 @@
                 android:id="@+id/tvDesctv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
                 android:layout_marginTop="16dp"
                 android:text="Descrição:"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
+                android:textSize="14sp"
+                android:textStyle="normal|italic"
+                app:layout_constraintStart_toStartOf="@+id/tvNome"
                 app:layout_constraintTop_toBottomOf="@+id/tvNome" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

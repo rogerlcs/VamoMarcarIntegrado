@@ -66,22 +66,10 @@ public class AllEventsFragment extends Fragment {
         events.observe(getActivity(), new Observer<List<Event>>() {
             @Override
             public void onChanged(List<Event> events) {
-                List<Event> eventList = vm.getListaeventoanterior();
-                if(eventList == null){
-                    AllEventsAdapter allEventsAdapter = new AllEventsAdapter(getContext(), events);
-                    rvAllEvents.setAdapter(allEventsAdapter);
-                    rvAllEvents.setLayoutManager(new LinearLayoutManager(getContext()));
-                    vm.setListaeventoanterior(events);
+                AllEventsAdapter allEventsAdapter = new AllEventsAdapter(getContext(), events);
+                rvAllEvents.setAdapter(allEventsAdapter);
+                rvAllEvents.setLayoutManager(new LinearLayoutManager(getContext()));
                 }
-                else {
-                    if(!Collections.disjoint(eventList, events)){
-                        AllEventsAdapter allEventsAdapter = new AllEventsAdapter(getContext(), events);
-                        rvAllEvents.setAdapter(allEventsAdapter);
-                        rvAllEvents.setLayoutManager(new LinearLayoutManager(getContext()));
-                        vm.setListaeventoanterior(events);
-                    }
-                }
-            }
         });
 
 

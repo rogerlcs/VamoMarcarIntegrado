@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +26,8 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class InviteEventsFragment extends Fragment {
+    Handler handler = new Handler(Looper.getMainLooper());
+    Runnable runnable;
 
 
     public InviteEventsFragment() {
@@ -67,5 +71,23 @@ public class InviteEventsFragment extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        handler.postDelayed( runnable = new Runnable() {
+            public void run() {
+                InviteEventsViewModel vm = new ViewModelProvider(getActivity(), new InviteEventsViewModel.InviteEventsViewModelFactory(getActivity())).get(InviteEventsViewModel.class);
+                vm.refreshEvents();
+                handler.postDelayed(runnable, 5000);
+            }
+        }, 5000);
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        handler.removeCallbacks(runnable);
+        super.onPause();
     }
 }

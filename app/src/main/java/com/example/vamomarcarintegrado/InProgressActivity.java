@@ -20,6 +20,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -52,6 +54,8 @@ import java.util.concurrent.Executors;
 public class InProgressActivity extends AppCompatActivity {
     long miliPrazoVotacao;
     String idevento;
+    Handler handler = new Handler(Looper.getMainLooper());
+    Runnable runnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -518,5 +522,23 @@ public class InProgressActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onResume() {
+        handler.postDelayed( runnable = new Runnable() {
+            public void run() {
+                InProgressViewModel vm = new ViewModelProvider(InProgressActivity.this, new InProgressViewModel.InProgressViewModelFactory(InProgressActivity.this,idevento)).get(InProgressViewModel.class);
+                vm.refreshEvent();
+                handler.postDelayed(runnable, 5000);
+            }
+        }, 5000);
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        handler.removeCallbacks(runnable);
+        super.onPause();
     }
 }

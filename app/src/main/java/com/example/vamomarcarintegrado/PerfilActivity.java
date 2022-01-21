@@ -30,8 +30,6 @@ public class PerfilActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.tbPerfil);
         setSupportActionBar(toolbar);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
 
         Intent i = getIntent();
         String id = i.getStringExtra("id");

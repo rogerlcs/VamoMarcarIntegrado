@@ -27,6 +27,7 @@ public class InProgressViewModel extends ViewModel {
     MutableLiveData<Event> event;
     Context context;
     String id;
+    String resultadoanterior;
 
     public InProgressViewModel(Context context, String id) {
         this.context = context;
@@ -153,7 +154,10 @@ public class InProgressViewModel extends ViewModel {
                         Event event1 = new Event(idevent, name, description, calendarV, calendarS, finalDate, address, localname, dataLists, userList, status_event,img, admin);
                         Log.d("HTTP_REQUEST_RESULT", event1.id);
 
-                        event.postValue(event1);
+                        if(!result.equalsIgnoreCase(resultadoanterior)){
+                            event.postValue(event1);
+                            resultadoanterior = result;
+                        }
                     }
 
                 } catch (IOException | JSONException e) {

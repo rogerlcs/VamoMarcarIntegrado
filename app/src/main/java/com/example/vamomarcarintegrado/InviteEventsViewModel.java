@@ -26,6 +26,7 @@ import java.util.concurrent.Executors;
 public class InviteEventsViewModel extends ViewModel {
     MutableLiveData<List<Event>> events;
     Context context;
+    String resultadoanterior;
 
     public InviteEventsViewModel(Context context) {
         this.context = context;
@@ -113,7 +114,10 @@ public class InviteEventsViewModel extends ViewModel {
 
                         }
 
-                        events.postValue(eventLists);
+                        if(!result.equalsIgnoreCase(resultadoanterior)){
+                            events.postValue(eventLists);
+                            resultadoanterior = result;
+                        }
                     }
 
                 } catch (IOException | JSONException e) {

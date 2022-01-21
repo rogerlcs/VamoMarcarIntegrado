@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -28,7 +29,7 @@ import java.util.concurrent.Executors;
 public class AllEventsViewModel extends ViewModel {
     MutableLiveData<List<Event>> events;
     Context context;
-    List<Event> listaeventoanterior;
+    String resultadoanterior;
 
     public AllEventsViewModel(Context context) {
         this.context = context;
@@ -43,13 +44,8 @@ public class AllEventsViewModel extends ViewModel {
         return events;
     }
 
-    public List<Event> getListaeventoanterior() {
-        return listaeventoanterior;
-    }
 
-    public void setListaeventoanterior(List<Event> listaeventoanterior) {
-        this.listaeventoanterior = listaeventoanterior;
-    }
+
 
     public void refreshEvents(){
         loadEvents();
@@ -122,7 +118,12 @@ public class AllEventsViewModel extends ViewModel {
 
 
                         }
-                        events.postValue(eventLists);
+
+
+                        if(!result.equalsIgnoreCase(resultadoanterior)){
+                            events.postValue(eventLists);
+                            resultadoanterior = result;
+                        }
                     }
 
                 } catch (IOException | JSONException e) {

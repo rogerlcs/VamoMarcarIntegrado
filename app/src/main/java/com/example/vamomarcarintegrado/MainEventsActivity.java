@@ -17,7 +17,7 @@ import android.view.View;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class AllEventsActivity extends AppCompatActivity {
+public class MainEventsActivity extends AppCompatActivity {
     static  int ADD_EVENT_ACTIVITY = 1;
 
     @Override
@@ -32,12 +32,11 @@ public class AllEventsActivity extends AppCompatActivity {
         fabAddNewEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(AllEventsActivity.this, AddEventActivity.class);
+                Intent i = new Intent(MainEventsActivity.this, AddEventActivity.class);
                 startActivityForResult(i, ADD_EVENT_ACTIVITY);
             }
         });
-        AllEventsFragment allEventsFragment = AllEventsFragment.newInstance();
-        setFragment(allEventsFragment);
+        MainEventsViewModel mainEventsViewModel = new ViewModelProvider(this).get(MainEventsViewModel.class);
         BottomNavigationView bottomNavigationView = findViewById(R.id.btNav);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -46,19 +45,26 @@ public class AllEventsActivity extends AppCompatActivity {
                     case R.id.allEventsViewOp:
                         AllEventsFragment allEventsFragment = AllEventsFragment.newInstance();
                         setFragment(allEventsFragment);
+                        mainEventsViewModel.setNavigationOpSelected(R.id.allEventsViewOp);
                         break;
 
                     case R.id.myEventsViewOp:
-                        //setFragment(myEventsFragment);
+                        MyEventsFragment myEventsFragment = MyEventsFragment.newInstance();
+                        setFragment(myEventsFragment);
+                        mainEventsViewModel.setNavigationOpSelected(R.id.myEventsViewOp);
                         break;
 
                     case R.id.invitationsViewOp:
-                        //setFragment(invitationsFragment);
+                        InviteEventsFragment inviteEventsFragment = InviteEventsFragment.newInstance();
+                        setFragment(inviteEventsFragment);
+                        mainEventsViewModel.setNavigationOpSelected(R.id.invitationsViewOp);
                         break;
                 }
                 return true;
             }
         });
+
+        bottomNavigationView.setSelectedItemId(mainEventsViewModel.getNavigationOpSelected());
 
 
     }
@@ -87,6 +93,10 @@ public class AllEventsActivity extends AppCompatActivity {
             if(resultCode == RESULT_OK){
                 AllEventsViewModel vm = new ViewModelProvider(this, new AllEventsViewModel.AllEventsViewModelFactory(this)).get(AllEventsViewModel.class);
                 vm.refreshEvents();
+                MyEventsViewModel vm1 = new ViewModelProvider(this, new MyEventsViewModel.MyEventsViewModelFactory(this)).get(MyEventsViewModel.class);
+                vm1.refreshEvents();
+                InviteEventsViewModel vm2 = new ViewModelProvider(this, new InviteEventsViewModel.InviteEventsViewModelFactory(this)).get(InviteEventsViewModel.class);
+                vm2.refreshEvents();
             }
         }
     }
@@ -96,7 +106,7 @@ public class AllEventsActivity extends AppCompatActivity {
         super.onOptionsItemSelected(item);
         switch (item.getItemId()){
             case R.id.opPerfil:
-                Intent i = new Intent(AllEventsActivity.this,PerfilActivity.class);
+                Intent i = new Intent(MainEventsActivity.this,PerfilActivity.class);
                 final String id = Config.getId(this);
                 i.putExtra("id", id);
                 startActivity(i);

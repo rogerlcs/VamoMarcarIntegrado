@@ -1,6 +1,5 @@
 package com.example.vamomarcarintegrado;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
@@ -8,7 +7,6 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -25,37 +23,27 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class AllEventsViewModel extends ViewModel {
+public class MyEventsViewModel extends ViewModel {
     MutableLiveData<List<Event>> events;
     Context context;
-    List<Event> listaeventoanterior;
 
-    public AllEventsViewModel(Context context) {
+    public MyEventsViewModel(Context context) {
         this.context = context;
     }
 
-    public LiveData<List<Event>> getEvents(){
-        if (events == null){
-            Log.i("id do usuario", "cheguei aqui");
+    public LiveData<List<Event>> getEvents() {
+        if(events == null){
             events = new MutableLiveData<>();
             loadEvents();
         }
         return events;
     }
 
-    public List<Event> getListaeventoanterior() {
-        return listaeventoanterior;
-    }
-
-    public void setListaeventoanterior(List<Event> listaeventoanterior) {
-        this.listaeventoanterior = listaeventoanterior;
-    }
-
     public void refreshEvents(){
         loadEvents();
     }
 
-    public void loadEvents() {
+    private void loadEvents() {
         final String login = Config.getLogin(context);
         final String password = Config.getPassword(context);
         final String id = Config.getId(context);
@@ -66,13 +54,14 @@ public class AllEventsViewModel extends ViewModel {
         executorService.execute(new Runnable() {
             @Override
             public void run() {
+
                 List<Event> eventLists = new ArrayList<>();
 
 
                 HttpRequest httpRequest = new HttpRequest(Config.SERVER_URL_BASE + "get_event.php", "GET", "UTF-8");
                 httpRequest.setBasicAuth(login, password);
                 httpRequest.addParam("id", id);
-                httpRequest.addParam("filter", "allevents");
+                httpRequest.addParam("filter", "myevents");
 
                 try {
                     InputStream is = httpRequest.execute();
@@ -122,6 +111,7 @@ public class AllEventsViewModel extends ViewModel {
 
 
                         }
+
                         events.postValue(eventLists);
                     }
 
@@ -132,13 +122,11 @@ public class AllEventsViewModel extends ViewModel {
             }
         });
     }
-
-
-    static public class AllEventsViewModelFactory implements ViewModelProvider.Factory {
+    static public class MyEventsViewModelFactory implements ViewModelProvider.Factory {
 
         Context context;
 
-        public AllEventsViewModelFactory(Context context) {
+        public MyEventsViewModelFactory(Context context) {
             this.context = context;
         }
 
@@ -146,8 +134,7 @@ public class AllEventsViewModel extends ViewModel {
         @Override
         public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
 
-            return (T) new AllEventsViewModel(context);
+            return (T) new MyEventsViewModel(context);
         }
     }
-
 }

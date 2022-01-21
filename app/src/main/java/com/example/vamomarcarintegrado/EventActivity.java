@@ -44,7 +44,7 @@ public class EventActivity extends AppCompatActivity {
             public void onChanged(Event event) {
                 Log.i("Id do evento", event.id);
 
-                ParticipantAdapter participantAdapter = new ParticipantAdapter(event.users, EventActivity.this);
+                ParticipantAdapter participantAdapter = new ParticipantAdapter(event.users, EventActivity.this, event);
                 rvParticp.setAdapter(participantAdapter);
                 rvParticp.setLayoutManager(new LinearLayoutManager(EventActivity.this));
 

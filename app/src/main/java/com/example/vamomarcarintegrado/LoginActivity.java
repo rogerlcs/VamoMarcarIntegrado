@@ -11,13 +11,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -80,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
                                         Config.setPassword(LoginActivity.this, password);
                                         Config.setId(LoginActivity.this, id);
                                         Toast.makeText(LoginActivity.this, "Login realizado com sucesso", Toast.LENGTH_LONG).show();
-                                        Intent i = new Intent(LoginActivity.this, AllEventsActivity.class);
+                                        Intent i = new Intent(LoginActivity.this, MainEventsActivity.class);
                                         startActivity(i);
                                     }
                                 });

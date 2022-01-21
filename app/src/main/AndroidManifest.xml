@@ -16,17 +16,17 @@
         <activity android:name=".PerfilActivity" />
         <activity
             android:name=".EventActivity"
-            android:parentActivityName=".AllEventsActivity">
+            android:parentActivityName=".MainEventsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".AllEventsActivity" />
+                android:value=".MainEventsActivity" />
         </activity>
         <activity
             android:name=".InProgressActivity"
-            android:parentActivityName=".AllEventsActivity">
+            android:parentActivityName=".MainEventsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".AllEventsActivity" />
+                android:value=".MainEventsActivity" />
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -38,12 +38,12 @@
         </activity>
         <activity
             android:name=".AddEventActivity"
-            android:parentActivityName=".AllEventsActivity">
+            android:parentActivityName=".MainEventsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".AllEventsActivity" />
+                android:value=".MainEventsActivity" />
         </activity>
-        <activity android:name=".AllEventsActivity" />
+        <activity android:name=".MainEventsActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity">

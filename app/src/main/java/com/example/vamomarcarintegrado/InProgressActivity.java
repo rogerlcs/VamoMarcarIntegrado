@@ -82,7 +82,7 @@ public class InProgressActivity extends AppCompatActivity {
                 rvDatasSugestoes.setAdapter(inProgressAdapter);
                 rvDatasSugestoes.setLayoutManager(new LinearLayoutManager(InProgressActivity.this));
 
-                ParticipantAdapter participantAdapter = new ParticipantAdapter(event.users, InProgressActivity.this);
+                ParticipantAdapter participantAdapter = new ParticipantAdapter(event.users, InProgressActivity.this, event);
                 rvParticpSugestao.setAdapter(participantAdapter);
                 rvParticpSugestao.setLayoutManager(new LinearLayoutManager(InProgressActivity.this));
 

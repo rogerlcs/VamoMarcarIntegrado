@@ -11,11 +11,14 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -24,6 +27,8 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class AllEventsFragment extends Fragment {
+    Handler handler = new Handler(Looper.getMainLooper());
+    Runnable runnable;
 
 
     public AllEventsFragment() {
@@ -61,17 +66,44 @@ public class AllEventsFragment extends Fragment {
         events.observe(getActivity(), new Observer<List<Event>>() {
             @Override
             public void onChanged(List<Event> events) {
-                Log.i("Evento:", events.get(0).description);
-                AllEventsAdapter allEventsAdapter = new AllEventsAdapter(getContext(), events);
-                rvAllEvents.setAdapter(allEventsAdapter);
-                rvAllEvents.setLayoutManager(new LinearLayoutManager(getContext()));
-
+                List<Event> eventList = vm.getListaeventoanterior();
+                if(eventList == null){
+                    AllEventsAdapter allEventsAdapter = new AllEventsAdapter(getContext(), events);
+                    rvAllEvents.setAdapter(allEventsAdapter);
+                    rvAllEvents.setLayoutManager(new LinearLayoutManager(getContext()));
+                    vm.setListaeventoanterior(events);
+                }
+                else {
+                    if(!Collections.disjoint(eventList, events)){
+                        AllEventsAdapter allEventsAdapter = new AllEventsAdapter(getContext(), events);
+                        rvAllEvents.setAdapter(allEventsAdapter);
+                        rvAllEvents.setLayoutManager(new LinearLayoutManager(getContext()));
+                        vm.setListaeventoanterior(events);
+                    }
+                }
             }
         });
 
 
 
-
     }
 
+    @Override
+    public void onResume() {
+        handler.postDelayed( runnable = new Runnable() {
+            public void run() {
+                AllEventsViewModel vm = new ViewModelProvider(getActivity(), new AllEventsViewModel.AllEventsViewModelFactory(getActivity())).get(AllEventsViewModel.class);
+                vm.refreshEvents();
+                handler.postDelayed(runnable, 5000);
+            }
+        }, 5000);
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        handler.removeCallbacks(runnable);
+        super.onPause();
+    }
 }
+

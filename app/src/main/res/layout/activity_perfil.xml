@@ -19,12 +19,11 @@
 
     <ImageView
         android:id="@+id/imvPerfil"
-        android:layout_width="@dimen/im_width"
-        android:layout_height="@dimen/im_height"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="@dimen/imp_width"
+        android:layout_height="@dimen/imp_height"
+        android:layout_marginTop="32dp"
         android:adjustViewBounds="true"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tbPerfil"
         app:srcCompat="@drawable/ic_baseline_person_24"
@@ -34,36 +33,33 @@
         android:id="@+id/tvNomePerfil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
         android:text="Leonardo Santana"
-        android:textSize="16sp"
+        android:textSize="22sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imvPerfil"
-        app:layout_constraintStart_toEndOf="@+id/imvPerfil" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imvPerfil" />
 
     <TextView
         android:id="@+id/tvBioPerfil"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="32dp"
         android:text="Bio:"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/imvPerfil"
-        app:layout_constraintTop_toBottomOf="@+id/imvPerfil" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNomePerfil" />
 
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
+        android:tint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="@+id/imageView6"
         app:layout_constraintStart_toEndOf="@+id/tvDtNasc"
         app:srcCompat="@drawable/ic_baseline_location_on_24" />
@@ -73,22 +69,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:text="Serra - Espirito Santo"
+        android:text="Espirito Santo"
         app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView5" />
 
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
         android:layout_marginTop="24dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvBioPerfil"
         app:layout_constraintTop_toBottomOf="@+id/tvBioPerfil"
         app:srcCompat="@drawable/ic_baseline_cake_24" />
 
@@ -117,12 +107,10 @@
         android:id="@+id/imbEditPerfil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
         android:background="#00FFFFFF"
-        android:tint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tbPerfil"
+        app:layout_constraintTop_toTopOf="@+id/imvPerfil"
         app:srcCompat="@android:drawable/ic_menu_edit" />
 </androidx.constraintlayout.widget.ConstraintLayout>

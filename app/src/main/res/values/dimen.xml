@@ -2,6 +2,8 @@
 <resources>
     <dimen name="im_width">110dp</dimen>
     <dimen name="im_height">110dp</dimen>
+    <dimen name="imp_width">130dp</dimen>
+    <dimen name="imp_height">130dp</dimen>
     <dimen name="desc_width">100dp</dimen>
     <dimen name="desc_height">80dp</dimen>
     <dimen name="p_width">50dp</dimen>

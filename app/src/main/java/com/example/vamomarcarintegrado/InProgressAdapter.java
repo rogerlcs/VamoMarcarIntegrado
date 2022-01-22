@@ -66,7 +66,7 @@ public class InProgressAdapter extends RecyclerView.Adapter {
                     imbVotacao.setColorFilter(Color.argb(255, 133, 132, 132));
                 }
                 else {
-                    imbVotacao.setColorFilter(Color.argb(255, 0, 0, 0));
+                    imbVotacao.setColorFilter(Color.argb(255, 18, 0, 238));
                 }
                 imbVotacao.setOnClickListener(new View.OnClickListener() {
                     @Override

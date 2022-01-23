@@ -530,9 +530,9 @@ public class InProgressActivity extends AppCompatActivity {
             public void run() {
                 InProgressViewModel vm = new ViewModelProvider(InProgressActivity.this, new InProgressViewModel.InProgressViewModelFactory(InProgressActivity.this,idevento)).get(InProgressViewModel.class);
                 vm.refreshEvent();
-                handler.postDelayed(runnable, 5000);
+                handler.postDelayed(runnable, 1000);
             }
-        }, 5000);
+        }, 1000);
         super.onResume();
     }
 

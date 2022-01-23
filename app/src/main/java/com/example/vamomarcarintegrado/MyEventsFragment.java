@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +26,8 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class MyEventsFragment extends Fragment {
-
+    Handler handler = new Handler(Looper.getMainLooper());
+    Runnable runnable;
 
 
     public MyEventsFragment() {
@@ -69,5 +72,23 @@ public class MyEventsFragment extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        handler.postDelayed( runnable = new Runnable() {
+            public void run() {
+                MyEventsViewModel vm = new ViewModelProvider(getActivity(), new MyEventsViewModel.MyEventsViewModelFactory(getActivity())).get(MyEventsViewModel.class);
+                vm.refreshEvents();
+                handler.postDelayed(runnable, 3000);
+            }
+        }, 3000);
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        handler.removeCallbacks(runnable);
+        super.onPause();
     }
 }

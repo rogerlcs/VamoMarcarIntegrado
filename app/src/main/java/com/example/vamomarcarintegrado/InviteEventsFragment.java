@@ -79,9 +79,9 @@ public class InviteEventsFragment extends Fragment {
             public void run() {
                 InviteEventsViewModel vm = new ViewModelProvider(getActivity(), new InviteEventsViewModel.InviteEventsViewModelFactory(getActivity())).get(InviteEventsViewModel.class);
                 vm.refreshEvents();
-                handler.postDelayed(runnable, 5000);
+                handler.postDelayed(runnable, 3000);
             }
-        }, 5000);
+        }, 3000);
         super.onResume();
     }
 

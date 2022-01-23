@@ -2,6 +2,7 @@ package com.example.vamomarcarintegrado;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -22,6 +23,7 @@ public class MainEventsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_events);
 
@@ -93,10 +95,6 @@ public class MainEventsActivity extends AppCompatActivity {
             if(resultCode == RESULT_OK){
                 AllEventsViewModel vm = new ViewModelProvider(this, new AllEventsViewModel.AllEventsViewModelFactory(this)).get(AllEventsViewModel.class);
                 vm.refreshEvents();
-                MyEventsViewModel vm1 = new ViewModelProvider(this, new MyEventsViewModel.MyEventsViewModelFactory(this)).get(MyEventsViewModel.class);
-                vm1.refreshEvents();
-                InviteEventsViewModel vm2 = new ViewModelProvider(this, new InviteEventsViewModel.InviteEventsViewModelFactory(this)).get(InviteEventsViewModel.class);
-                vm2.refreshEvents();
             }
         }
     }

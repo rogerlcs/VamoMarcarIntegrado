@@ -121,8 +121,18 @@ public class EventViewModel extends ViewModel {
                             JSONObject jUser = jsonArrayUsers.getJSONObject(i);
                             String codigo = jUser.getString("codigo");
                             String nome = jUser.getString("nome");
+                            String imgBase64User = jUser.getString("img");
 
-                            User user = new User(codigo, nome);
+                            User user;
+
+                            if(imgBase64User.equalsIgnoreCase("null")){
+                                user = new User(codigo, nome);
+                            }
+                            else {
+                                String pureBase64Encoded1 = imgBase64User .substring(imgBase64.indexOf(",") + 1);
+                                Bitmap img1 = Util.base642Bitmap(pureBase64Encoded1);
+                                user = new User(codigo, nome, img1);
+                            }
 
                             userList.add(user);
                         }

@@ -82,9 +82,9 @@ public class AllEventsFragment extends Fragment {
             public void run() {
                 AllEventsViewModel vm = new ViewModelProvider(getActivity(), new AllEventsViewModel.AllEventsViewModelFactory(getActivity())).get(AllEventsViewModel.class);
                 vm.refreshEvents();
-                handler.postDelayed(runnable, 5000);
+                handler.postDelayed(runnable, 3000);
             }
-        }, 5000);
+        }, 3000);
         super.onResume();
     }
 
